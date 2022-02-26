@@ -43,6 +43,10 @@ public class MainClass2 {
         {
           Member m3=(Member)m1.clone();
           m3.display();
+          
+          System.out.println(m1.toString());
+          System.out.println(m2.toString());
+          System.out.println(m3.toString());
         }catch(Exception ex) {}
         
 	}
