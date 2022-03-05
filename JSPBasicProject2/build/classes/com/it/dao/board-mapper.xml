@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.dao.board-mapper">
+  <!--  namespace = package -->
+  <!-- 
+       (cache-ref | cache | resultMap* | 
+       parameterMap* | sql* | insert* | update* | 
+       delete* | select*)+
+   -->
+   <!-- 목록  
+      resultType="BoardVO" => 설정이 한개만 사용 
+      parameterType="hashmap"
+      
+      SELECT CEIL(COUNT(*)/12.0) FROM board
+        resultType="int"
+        (X)parameterType
+      SELECT pwd FROM board WHERE no=?
+        resultType="string"
+        parameterType="int"
+      SELECT * FROM board WHERE subject LIKE '%'||?||'%'
+        resultType="BoardVO"
+        parameterType="string"
+      SELECT * FROM board WHERE name=#{name} AND pwd=#{pwd}
+                                     vo.getName()     vo.getPwd()
+        resultType="BoardVO"
+        parameterType="BoardVO"
+      SELECT * FROM board LIMIT ?,?
+        resultType="BoardVO"
+        parameterType="hashmap"
+      
+      LIMIT #{start},#{rowSize} ==> map(키,값) => map.put("start",1)
+          map.get("start"),map.get("rowSize") => map.put("rowSize",10)
+   -->
+   <select id="boardListData" resultType="BoardVO" parameterType="hashmap"><!-- id는 UNIQUE -->
+    SELECT no,subject,name,DATE_FORMAT(regdate,'%Y-%m-%d') as dbday,hit 
+    FROM board 
+    ORDER BY no DESC
+    LIMIT #{start},#{rowSize}
+    
+   </select>
+   <!-- 글쓰기 -->
+   <insert id="boardInsert" parameterType="BoardVO">
+    INSERT INTO board(name,subject,content,pwd,regdate,hit) VALUES(
+      #{name},
+      #{subject},
+      #{content},
+      #{pwd},
+      sysdate(),
+      0
+    )
+   </insert>
+   <!-- 조회수 증가, 내용보기 -->
+   <!-- 비밀번호 검색,수정 -->
+   <!-- 비밀번호 검색,삭제 -->
+   <!-- 찾기 LIKE-->
+</mapper>
+<!-- 
+     PreparedStatement , ResultSet 
+ -->

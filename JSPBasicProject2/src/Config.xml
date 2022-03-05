@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration><!-- 루트(최상위 태그) -->
+  <!-- 
+      (***properties?, settings?, ***typeAliases?, 
+        **typeHandlers?, objectFactory?, objectWrapperFactory?, 
+        reflectorFactory?, plugins?, ****environments?, 
+        databaseIdProvider?, ****mappers?)
+        properties : properties 파일을 읽어 온다 (데이터베이스 정보)
+                     driver=드라이버명 
+                     url=
+                     username=
+                     password=
+        settings :CACHE => 재사용 
+        typeAliases : VO등록 
+        typeHandlers : 데이터형 변경
+        environments : 환경 (MySQL연결)
+        mappers : SQL문장 저장 
+        ,  : 태그의 순서 
+        ?  : 필요시마다 사용 (필요한 태그만 사용이 가능)
+        +  : 한번이상 사용 
+        *  : 0번이상 사용 
+        default : 반드시 한번 사용 
+        | : 선택 
+   -->
+   <typeAliases><!-- VO등록  -->
+     <!--  (typeAlias*, package*)  -->
+     <typeAlias type="com.it.dao.BoardVO" alias="BoardVO"/>
+   </typeAliases>
+   <environments default="development">
+     <!-- (environment)+ -->
+     <environment id="development">
+       <!-- (transactionManager,dataSource) -->
+       <transactionManager type="JDBC"/>
+         <!-- 
+            transaction: COMMIT / ROLLBACK
+            JDBC : 자바형식으로 자동 처리 
+            MANAGE : 관리자가 처리 
+          -->
+       <dataSource type="POOLED">
+          <!-- 
+                POOLED : DBCP (미리 연결 => 연결 주소를 얻어서 사용 => 웹 DBCP)
+                 => 연결 갯수 (8)
+                UNPOOLED : 일반 JDBC (연결 , 해제 반복) => 속도가 저하  
+           -->
+           <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+           <property name="url" value="jdbc:mysql://localhost:3306/mydb?serverTimezone=UTC"/>
+           <property name="username" value="root"/>
+           <property name="password" value="happy"/>
+       </dataSource>
+     </environment>
+   </environments>
+   <mappers>
+     <mapper resource="com/it/dao/board-mapper.xml"/>
+   </mappers>
+</configuration> 
+<!-- 
+      Connection관련 : MySQL연결 정보 
+      1. XML = 사용자 정의 태그 = 태그,속성에 대한 정의 언어를 제공 = dtd
+                           설정 파일(Maven , Spring , MyBatis , Kotlin..) = 메뉴얼  
+                문법사항 
+           1) 계층형 구조 (트리형태) => 반드시 루트태그가 필요하다 
+           2) 여는 태그와 닫는 태그가 동일 <br> => <br/>
+           3) 속성값을 입력 반드시 ""를 사용한다 
+           4) 대소문자 구분  <a>!=<A> <img src="">!=<img SRC="">
+           5) XML은 지정된 태그와 속성만 사용이 가능 => google에서 제공하는 태그만 사용이 가능 
+ -->
