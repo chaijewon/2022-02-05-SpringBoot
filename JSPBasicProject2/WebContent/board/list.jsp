@@ -46,12 +46,31 @@
         <tr>
          <td class="text-center" width=10%>${vo.no }</td>
          <%-- vo.no = vo.getNo() --%>
-         <td width=45%>${vo.subject }</td>
+         <td width=45%><a href="../main/main.jsp?mode=7&no=${vo.no }">${vo.subject }</a></td>
          <td class="text-center" width=15%>${vo.name }</td>
          <td class="text-center" width=20%>${vo.dbday }</td>
          <td class="text-center" width=10%>${vo.hit }</td>
         </tr>
        </c:forEach>
+     </table>
+     <table class="table">
+      <tr>
+       <td class="text-left">
+        Search:
+        <select name=fs class="input-sm">
+         <option>이름</option>
+         <option>제목</option>
+         <option>내용</option>
+        </select>
+        <input type=text name=ss class="input-sm" size=15>
+        <input type=button value="검색" class="btn btn-sm btn-primary">
+       </td>
+       <td class="text-right">
+        <a href="../main/main.jsp?mode=5&page=${curpage>1?curpage-1:curpage }" class="btn btn-sm btn-primary">이전</a>
+        ${curpage } page / ${totalpage } pages
+        <a href="../main/main.jsp?mode=5&page=${curpage<totalpage?curpage+1:curpage }" class="btn btn-sm btn-primary">다음</a>
+       </td>
+      </tr>
      </table>
    </div>
 </body>

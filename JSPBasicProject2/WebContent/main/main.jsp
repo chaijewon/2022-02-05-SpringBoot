@@ -29,6 +29,9 @@
      case 6:
     	 jsp="../board/insert.jsp";
     	 break;
+     case 7:
+    	 jsp="../board/detail.jsp";
+    	 break;
      }
 %>
 <!DOCTYPE html>

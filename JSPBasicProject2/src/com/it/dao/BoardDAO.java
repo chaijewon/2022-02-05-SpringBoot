@@ -87,7 +87,38 @@ public class BoardDAO {
 	   {
 		   session=ssf.openSession();//연결된 Connection을 얻어 온다 
 		   list=session.selectList("boardListData",map);
-		   
+		   // sql 문장을 읽어 온다 
+		   /*
+		    *     public List selectList(String sql,Object obj)
+		    *     {
+		    *          1. 데이터베이스 연결 
+		    *          conn=DriverManager.getConnection(URL,username,password)
+		    *          2. SQL문장 제작 
+		    *          SQL----------------------
+		    *          String sql=""; <select>SELECT~</select>
+		    *          ----------------------
+		    *          3. MYSQL로 전송 
+		    *          ps=conn.preparedStatement(sql);
+		    *          4. ?에 값을 채운다 
+		    *          ---------------------- parameterType
+		    *          ps.setInt(1,"")
+		    *          ps.setInt(2,"")
+		    *          ----------------------
+		    *          5. 결과값 읽기
+		    *          ResultSet rs=ps.executeQuery()
+		    *          while(rs.next())
+		    *          {
+		    *          ----------------------------------- ResultType
+		    *              BoardVO vo=new BoardVO();
+		    *              vo.setNo(rs.getString("no"));
+		    *              ..
+		    *              ..
+		    *              list.add(vo);
+		    *           -----------------------------------
+		    *          }
+		    *          
+		    *     }
+		    */
 	   }catch(Exception ex)
 	   {
 		   ex.printStackTrace();
@@ -122,6 +153,80 @@ public class BoardDAO {
 				   session.close();
 		   }catch(Exception ex) {}
 	   }
+   }
+   /*
+    *  <update id="hitIncrement" parameterType="int">
+	     UPDATE board SET
+	     hit=hit+1
+	     WHERE no=#{no}
+	   </update>
+	   <select id="boardDetailData" resultType="BoardVO" parameterType="int">
+	    SELECT no,name,subject,content,DATE_FORMAT(regdate,'%Y-%m-%d') as dbday,hit
+	    FROM board
+	    WHERE no=#{no}
+	   </select>
+    */
+   // resultType(리턴형)  parameterType(매개변수)
+   public static BoardVO boardDetailData(int no)
+   {
+	   BoardVO vo=new BoardVO();
+	   SqlSession session=null;
+	   try
+	   {
+		   session=ssf.openSession();
+		   //1.조회수 증가 
+		   session.update("hitIncrement",no);
+		   session.commit();
+		   //2.내용보기 데이터 읽기
+		   vo=session.selectOne("boardDetailData",no);
+		   /*
+		    *    1. insert() <insert>
+		    *    2. update() <update>
+		    *    3. delete() <delete>
+		    *    4. select=> 데이터검색 
+		    *       ROW가 여러개일 경우 : selectList  => List
+		    *       ROW가 한개일 경우 : selectOne => ~VO
+		    */
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   try
+		   {
+			   if(session!=null)
+				   session.close();
+		   }catch(Exception ex) {}
+	   }
+	   return vo;
+   }
+   /*
+    *  <select id="boardTotalPage" resultType="int">
+        SELECT CEIL(COUNT(*)/10.0) FROM board
+       </select>
+    */
+   public static int boardTotalPage()
+   {
+	   int totalpage=0;
+	   SqlSession session=null;
+	   try
+	   {
+		   session=ssf.openSession();
+		   totalpage=session.selectOne("boardTotalPage");
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   try
+		   {
+			   if(session!=null)
+				   session.close();
+		   }catch(Exception ex) {}
+	   }
+	   return totalpage;
    }
    
 }

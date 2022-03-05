@@ -38,7 +38,14 @@
     FROM board 
     ORDER BY no DESC
     LIMIT #{start},#{rowSize}
-    
+   </select>
+   <!-- 총페이지구하기 -->
+   <!-- 
+         13/10.0 => CEIL(1.3) => 2  1.1 = 2 1.0 =1
+                올림함수 
+    -->
+   <select id="boardTotalPage" resultType="int">
+    SELECT CEIL(COUNT(*)/10.0) FROM board
    </select>
    <!-- 글쓰기 -->
    <insert id="boardInsert" parameterType="BoardVO">
@@ -52,6 +59,16 @@
     )
    </insert>
    <!-- 조회수 증가, 내용보기 -->
+   <update id="hitIncrement" parameterType="int">
+     UPDATE board SET
+     hit=hit+1
+     WHERE no=#{no}
+   </update>
+   <select id="boardDetailData" resultType="BoardVO" parameterType="int">
+    SELECT no,name,subject,content,DATE_FORMAT(regdate,'%Y-%m-%d') as dbday,hit
+    FROM board
+    WHERE no=#{no}
+   </select>
    <!-- 비밀번호 검색,수정 -->
    <!-- 비밀번호 검색,삭제 -->
    <!-- 찾기 LIKE-->
@@ -59,3 +76,8 @@
 <!-- 
      PreparedStatement , ResultSet 
  -->
+ 
+ 
+ 
+ 
+ 
