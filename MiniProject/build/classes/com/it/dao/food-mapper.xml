@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.dao.food-mapper">
+   <select id="categoryListData" resultType="CategoryVO">
+    SELECT cno,title,subject,poster 
+    FROM food_category 
+    ORDER BY cno ASC
+   </select>
+   <select id="categoryInfoData" resultType="CategoryVO" parameterType="int">
+    SELECT title,subject 
+    FROM food_category
+    WHERE cno=#{cno}
+   </select>
+   <select id="categoryFoodListData" resultType="FoodVO" parameterType="int">
+     SELECT no,name,poster,address,tel,type,score
+     FROM food_house
+     WHERE cno=#{cno}
+   </select>
+   <select id="foodDetailData" resultType="FoodVO" parameterType="int">
+     SELECT * FROM food_house
+     WHERE no=#{no}
+   </select>
+</mapper>
