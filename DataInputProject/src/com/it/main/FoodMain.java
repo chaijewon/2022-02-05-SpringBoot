@@ -78,9 +78,10 @@ public class FoodMain {
         		vo.setPoster(poster.get(i).attr("data-lazy"));
         		vo.setLink("https://www.mangoplate.com"+link.get(i).attr("href"));
         		
-        		//dao.foodCategoryInsert(vo);
+        		dao.foodCategoryInsert(vo);
         		System.out.println("==================================================");
         	}
+        	System.out.println("수집완료!!");
         }catch(Exception ex){}
 	}
 	
@@ -268,6 +269,7 @@ public class FoodMain {
 				   }
 				   
 			   }
+			   System.out.println("저장 완료");
 		   }catch(Exception ex){ex.printStackTrace();}
 	}
 	public void foodLocationData()
@@ -466,6 +468,7 @@ public class FoodMain {
             	System.out.println("==============================");
             	k++;
             }
+            System.out.println("저장 완료!!");
 		}catch(Exception ex){}
 	}
 

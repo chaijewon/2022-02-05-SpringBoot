@@ -107,7 +107,7 @@ public class DataDAO {
 	   {
 		   getConnection();
 		   String sql="INSERT INTO food_house VALUES("
-				     +"?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				     +"?,?,?,?,?,?,?,?,?,?,?,?)";
 		   ps=conn.prepareStatement(sql);
 		   ps.setInt(1, vo.getNo());
 		   ps.setInt(2, vo.getCno());
@@ -121,9 +121,10 @@ public class DataDAO {
 		   ps.setString(10, vo.getParking());
 		   ps.setString(11, vo.getTime());
 		   ps.setString(12, vo.getMenu());
-		   ps.setInt(13, vo.getGood());
-		   ps.setInt(14, vo.getSoso());
-		   ps.setInt(15, vo.getBad());
+			/*
+			 * ps.setInt(13, vo.getGood()); ps.setInt(14, vo.getSoso()); ps.setInt(15,
+			 * vo.getBad());
+			 */
 		   ps.executeUpdate();
 	   }catch(Exception ex)
 	   {
@@ -157,7 +158,7 @@ public class DataDAO {
 	   {
 		   getConnection();
 		   String sql="INSERT INTO food_location VALUES("
-				     +"?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				     +"?,?,?,?,?,?,?,?,?,?,?)";
 		   ps=conn.prepareStatement(sql);
 		   ps.setInt(1, vo.getNo());
 		   ps.setString(2, vo.getPoster());
@@ -170,9 +171,10 @@ public class DataDAO {
 		   ps.setString(9, vo.getParking());
 		   ps.setString(10, vo.getTime());
 		   ps.setString(11, vo.getMenu());
-		   ps.setInt(12, vo.getGood());
-		   ps.setInt(13, vo.getSoso());
-		   ps.setInt(14, vo.getBad());
+			/*
+			 * ps.setInt(12, vo.getGood()); ps.setInt(13, vo.getSoso()); ps.setInt(14,
+			 * vo.getBad());
+			 */
 		   ps.executeUpdate();
 	   }catch(Exception ex)
 	   {
@@ -191,7 +193,7 @@ public class DataDAO {
 	   try
 	   {
 		   getConnection();
-		   String sql="SELECT cno,link FROM project_food_category "
+		   String sql="SELECT cno,link FROM food_category "
 				     +"ORDER BY 1";
 		   ps=conn.prepareStatement(sql);
 		   ResultSet rs=ps.executeQuery();
