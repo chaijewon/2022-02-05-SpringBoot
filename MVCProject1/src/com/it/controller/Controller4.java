@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 import com.it.model.*;
-@WebServlet("*.do")
+@WebServlet("*.do1")
 // list.do , insert.do , update.do
 public class Controller4 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
