@@ -37,4 +37,37 @@ public class FoodController {
 	   return "food/main"; // .jsp를 사용하면 안된다 
    }
    
+   @GetMapping("list.do")
+   public String food_list(int cno,Model model)
+   {
+	   CategoryVO vo=dao.categoryInfoData(cno);
+	   List<FoodVO> list=dao.categoryFoodListData(cno);
+	   for(FoodVO fvo:list)
+	   {
+		   String poster=fvo.getPoster();
+		   poster=poster.substring(0,poster.indexOf("^"));
+		   fvo.setPoster(poster);
+		   
+		   String address=fvo.getAddress();
+		   address=address.substring(0,address.lastIndexOf("지"));
+		   fvo.setAddress(address);
+	   }
+	   model.addAttribute("vo", vo);
+	   model.addAttribute("list", list);
+	   model.addAttribute("main_jsp", "list.jsp");
+	   return "food/main";
+   }
+   
+   @GetMapping("detail.do")
+   public String food_detail(int no,Model model)
+   {
+	   FoodVO vo=dao.foodDetailData(no);
+	   String addr=vo.getAddress();
+	   addr=addr.substring(0,addr.lastIndexOf("지"));
+	   model.addAttribute("addr", addr);
+	   model.addAttribute("vo", vo);
+	   model.addAttribute("main_jsp", "detail.jsp");
+	   return "food/main";
+   }
+   
 }

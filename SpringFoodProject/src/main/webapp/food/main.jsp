@@ -13,10 +13,10 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">SpringMiniSite</a>
+      <a class="navbar-brand" href="main.do">SpringMiniSite</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
+      <li class="active"><a href="main.do">Home</a></li>
       <li><a href="#">맛집검색</a></li>
       <li><a href="#">명소</a></li>
       <li><a href="#">자연/관광</a></li>
