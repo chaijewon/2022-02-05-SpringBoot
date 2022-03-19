@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+    <!--  사용자 정의 클래스 패키지단위로 등록  -->
+    <context:component-scan base-package="com.it.*"/>
+    <!--  메모리 할당후에 관리대상을 선택적으로 설정 -->
+    <!-- 
+                구분자(어노테이션) => 클래스별로 저장 
+         @Component, : 일반 클래스 등록 (~Manager,XML파싱)
+         @Repository, : 저장소 => DAO
+         @Service, : BI(DAO통합)
+         @Controller, : Model
+         @RestController, : Model
+         @ControllerAdvice, : 통합 예외처리 
+         @Configuration : 자바로 스프링 클래스 등록 
+     -->
+     <!-- 라이브러리는 bean --> 
+     <util:properties id="db" location="classpath:db.properties"/>
+     <bean id="ds" class="org.apache.commons.dbcp.BasicDataSource"
+       p:driverClassName="#{db['driver']}"
+       p:url="#{db['url']}"
+       p:username="#{db['username']}"
+       p:password="#{db['password']}"
+     />
+     <bean id="dataSource" 
+          class="net.sf.log4jdbc.Log4jdbcProxyDataSource"> 
+      <constructor-arg ref="ds" /> 
+      <property name="logFormatter"> 
+        <bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter"> 
+        <property name="loggingType" value="MULTI_LINE" /> 
+        <property name="sqlPrefix" value="SQL : "/> 
+        </bean> 
+      </property> 
+    </bean>
+     
+     <bean id="ssf" class="org.mybatis.spring.SqlSessionFactoryBean"
+       p:dataSource-ref="dataSource"
+     />
+     <bean id="mapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
+       p:sqlSessionFactory-ref="ssf"
+       p:mapperInterface="com.it.dao.CategoryMapper"
+     />
+</beans>
+
+
+
+
+
+
+
+
