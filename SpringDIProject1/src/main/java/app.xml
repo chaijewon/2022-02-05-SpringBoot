@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+    <!-- 데이터베이스 연결  (스프링이 동작을 하기 위한 메뉴얼) XML/Annotation/Java-->
+    <!-- 1. 데이터베이스 정보를 모아 준다 -->
+    <bean id="ds" class="org.apache.commons.dbcp.BasicDataSource"
+      p:driverClassName="com.mysql.cj.jdbc.Driver"
+      p:url="jdbc:mysql://localhost:3306/mydb?serverTimezone=UTC"
+      p:username="root"
+      p:password="1111"
+    />
+    <!-- 
+        map.put("ds",new BasicDataSource())
+     -->
+    <!-- 
+        private static SqlSessionFactory ssf;
+		   static
+		   {
+			   // XML을 파싱한 결과를 ssf에 전송 
+			   try
+			   {
+				   //XML을 읽기
+				   Reader reader=Resources.getResourceAsReader("Config.xml");
+				   ssf=new SqlSessionFactoryBuilder().build(reader);
+			   }catch(Exception ex) 
+			   {
+				   ex.printStackTrace();
+			   }
+		   }
+     -->
+    <!-- 2. MyBatis연결  -->
+    <!-- 
+        SqlSessionFactory = getonnection() :연결 , disConnection() : 해제
+                          = Sqlsession => PreparedStatement, ResultSet
+                                          => MySQL 전송 (SQL) , 결과값 읽기 
+                                          ResultSet => 메모리에 저장 
+     -->
+    <bean id="ssf" class="org.mybatis.spring.SqlSessionFactoryBean"
+      p:dataSource-ref="ds"
+    />
+    <!-- 3. Mapper(인터페이스) 구현 요청  -->
+    <bean id="mapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
+      p:sqlSessionFactory-ref="ssf"
+      p:mapperInterface="com.it.web.LocationMapper"
+    />
+    <!-- 사용자 정의 클래스 메모리할당  -->
+    <bean id="dao" class="com.it.web.LocationDAO"
+      p:mapper-ref="mapper"
+    />
+</beans>
+
+
+
+
+
+
+
