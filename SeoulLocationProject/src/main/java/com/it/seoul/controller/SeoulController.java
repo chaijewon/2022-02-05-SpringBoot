@@ -84,6 +84,23 @@ public class SeoulController {
 	   model.addAttribute("vo", vo);
 	   return "detail";//detail.jsp에서 결과값을 출력 
    }
+   // int , String 
+   @GetMapping("/hotel.do")
+   public String hotel_list(String page,Model model)
+   {
+	   if(page==null)
+		   page="1";
+	   int curpage=Integer.parseInt(page); // 현재 페이지 
+	   Map map=new HashMap();
+	   int size=12;
+	   int start=(size*curpage)-(size);
+	   //int end = size*curpage;
+	   map.put("start", start);
+	   map.put("end", size);
+	   List<HotelVO> list=service.hotelListData(map);
+	   model.addAttribute("list", list);
+	   return "hotel";
+   }
    
 }
 
