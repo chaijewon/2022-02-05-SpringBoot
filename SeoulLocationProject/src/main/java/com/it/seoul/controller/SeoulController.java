@@ -65,9 +65,9 @@ public class SeoulController {
 	   Map map=new HashMap();
 	   int size=12;
 	   int start=(size*curpage)-(size);
-	   int end = size*curpage;
+	   //int end = size*curpage;
 	   map.put("start", start);
-	   map.put("end", end);
+	   map.put("end", size);
 	   List<SeoulVO> list=service.seoulListData(map);
 	   int totalpage=service.seoulTotalPage();
 	   //////////////////// 요청처리 
