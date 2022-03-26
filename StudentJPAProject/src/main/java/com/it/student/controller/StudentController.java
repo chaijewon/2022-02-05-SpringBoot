@@ -28,4 +28,9 @@ public class StudentController {
 	  dao.save(vo);
 	  return "redirect:list";
   }
+  @GetMapping("/find")
+  public String student_find()
+  {
+	  return "find";
+  }
 }

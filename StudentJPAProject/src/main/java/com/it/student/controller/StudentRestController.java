@@ -20,4 +20,15 @@ public class StudentRestController {
 		 */
 	  return list;
   }
+  @GetMapping("/find_vue")
+  public List<StudentEntity> studentFindData(String fd)
+  {
+	  System.out.println("fd="+fd);
+	  List<StudentEntity> list=dao.findByNameContains(fd);
+	  for(StudentEntity s:list)
+	  {
+		  System.out.println(s.getHakbun()+" "+s.getName());
+	  }
+	  return list;
+  }
 }
