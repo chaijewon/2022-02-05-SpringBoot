@@ -13,7 +13,11 @@
     <!-- 
          /food/main.jsp
      -->
-    <!-- JSP찾기 : ViewResolver : 확장자 , 경로명-->
+    <!-- JSP찾기 : ViewResolver : 확장자 , 경로명
+      spring.mvc.view.prefix=/WEB-INF/seoul/
+      spring.mvc.view.suffix=.jsp
+
+    -->
     <bean id="viewResolver"
        class="org.springframework.web.servlet.view.InternalResourceViewResolver"
        p:prefix="/"
