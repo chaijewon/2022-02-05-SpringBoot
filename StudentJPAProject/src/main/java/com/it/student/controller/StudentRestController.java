@@ -24,7 +24,7 @@ public class StudentRestController {
   public List<StudentEntity> studentFindData(String fd)
   {
 	  System.out.println("fd="+fd);
-	  List<StudentEntity> list=dao.findByNameContains(fd);
+	  List<StudentEntity> list=dao.findByNameContaining(fd);
 	  for(StudentEntity s:list)
 	  {
 		  System.out.println(s.getHakbun()+" "+s.getName());

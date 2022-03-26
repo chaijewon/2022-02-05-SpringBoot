@@ -23,5 +23,5 @@ public interface StudentDAO extends JpaRepository<StudentEntity, Integer>{
      *        
      */
 	public StudentEntity findByHakbun(int hakbun);
-	public List<StudentEntity> findByNameContains(String name);
+	public List<StudentEntity> findByNameContaining(String name);
 }
