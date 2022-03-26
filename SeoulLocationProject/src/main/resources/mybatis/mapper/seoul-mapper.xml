@@ -10,4 +10,8 @@
   <select id="seoulTotalPage" resultType="int">
    SELECT CEIL(COUNT(*)/12.0) FROM seoul_location
   </select>
+  <select id="seoulDetailData" resultType="com.it.seoul.vo.SeoulVO" parameterType="int">
+    SELECT * FROM seoul_location
+    WHERE no=#{no}
+  </select>
 </mapper>

@@ -15,7 +15,7 @@
     <c:forEach var="vo" items="${list }">
 	    <div class="col-md-3">
 	      <div class="thumbnail">
-	        <a href="#">
+	        <a href="detail.do?no=${vo.no }"><!-- @Controller -->
 	          <img src="${vo.poster }" alt="Lights" style="width:100%">
 	          <div class="caption">
 	            <p>${vo.name }</p>

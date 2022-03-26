@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.it.seoul.vo.SeoulVO;
 import com.it.seoul.dao.*;
-@Service 
+@Service //BI (DAO통합) 
 public class SeoulServiceImpl implements SeoulService{
     @Autowired
     private SeoulMapper mapper; // 스프링에 의해 구현 
@@ -21,6 +21,11 @@ public class SeoulServiceImpl implements SeoulService{
 	public int seoulTotalPage() {
 		// TODO Auto-generated method stub
 		return mapper.seoulTotalPage();
+	}
+	@Override
+	public SeoulVO seoulDetailData(int no) {
+		// TODO Auto-generated method stub
+		return mapper.seoulDetailData(no);
 	}
 
 }

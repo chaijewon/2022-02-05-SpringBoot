@@ -77,5 +77,20 @@ public class SeoulController {
 	   /////////////////// list.jsp로 출력할 데이터 전송 
 	   return "list";
    }
+   @GetMapping("/detail.do") // 사용자 요청  => if 
+   public String seoul_detail(int no,Model model) // no 사용자가 요청값 , model=결과값 전송 
+   {
+	   SeoulVO vo=service.seoulDetailData(no);
+	   model.addAttribute("vo", vo);
+	   return "detail";//detail.jsp에서 결과값을 출력 
+   }
    
 }
+
+
+
+
+
+
+
+

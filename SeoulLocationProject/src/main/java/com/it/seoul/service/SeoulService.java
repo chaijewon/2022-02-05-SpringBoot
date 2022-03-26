@@ -8,4 +8,5 @@ import com.it.seoul.vo.SeoulVO;
 public interface SeoulService {
 	public List<SeoulVO> seoulListData(Map map);
 	public int seoulTotalPage();
+	public SeoulVO seoulDetailData(int no);
 }
